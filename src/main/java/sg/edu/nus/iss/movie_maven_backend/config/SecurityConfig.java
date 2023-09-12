@@ -29,6 +29,7 @@ public class SecurityConfig {
             .authorizeHttpRequests((requests) -> requests
                 .requestMatchers(HttpMethod.POST, "/api/login", "/api/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "**").permitAll()
+                // .requestMatchers(HttpMethod.POST,"/api/receivereview").authenticated()
                 .anyRequest().authenticated());
         return http.build();
     }

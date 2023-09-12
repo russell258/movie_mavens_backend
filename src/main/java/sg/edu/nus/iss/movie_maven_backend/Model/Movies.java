@@ -14,6 +14,6 @@ public class Movies {
     private String title;
     private Date release_date;
     private String overview;
-    private float average_rating;
+    private double average_rating;
     private String review_id;
 }

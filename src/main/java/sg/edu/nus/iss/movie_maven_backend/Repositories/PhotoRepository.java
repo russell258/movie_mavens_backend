@@ -2,7 +2,6 @@ package sg.edu.nus.iss.movie_maven_backend.Repositories;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -19,12 +18,12 @@ public class PhotoRepository {
     @Autowired
     private AmazonS3 S3;
 
-    public String uploadFile(MultipartFile file) throws IOException{
+    public String uploadFile(MultipartFile file, String uuid) throws IOException{
 
 	ObjectMetadata metadata = new ObjectMetadata();
 	metadata.setContentType(file.getContentType());
 	metadata.setContentLength(file.getSize());
-	String uuid = UUID.randomUUID().toString().substring(0,8);
+	// String uuid = UUID.randomUUID().toString().substring(0,8);
 	InputStream is = file.getInputStream();
 
 	PutObjectRequest putReq = new PutObjectRequest("csfday37", uuid, is, metadata);

@@ -32,7 +32,7 @@ public class AuthController {
     
     @PostMapping("/login")
     public ResponseEntity<UserDto> login(@RequestBody LoginDto loginDto) {
-        System.out.println("IS THIS BEING CALLED????");
+        System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Login called");
         UserDto user = userService.login(loginDto);
         user.setToken(userAuthProvider.createToken(user));
         return ResponseEntity.ok(user);
@@ -45,7 +45,6 @@ public class AuthController {
         UserDto createdUser = new UserDto();
         createdUser.setToken(userAuthProvider.createToken(new UserDto(user.getId(), user.getUsername(), "")));
         createdUser.setUsername(user.getUsername());
-        System.out.println("EVERYTHING GOING OKAY UNTIL EMAIL");
         emailSvc.sendEmail(user.getEmail(), "Movie Maven | Account Created" , "Hi " + user.getUsername() +", your account has been created successfully! \n\nHave a good time here.\nFrom the Movie Maven Team");
         return ResponseEntity.created(URI.create("/users/" + createdUser.getId())).body(createdUser);
     }
