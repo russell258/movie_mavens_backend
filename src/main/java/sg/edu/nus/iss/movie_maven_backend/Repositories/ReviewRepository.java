@@ -21,6 +21,8 @@ public class ReviewRepository {
     private final String CREATE_MOVIE_SQL = "insert into movies values (null, ?,?,?,?,?,?)"; 
     private final String SELECT_ALL_REVIEWED_MOVIES_SQL= "select * from reviews inner join movies on reviews.review_id=movies.review_id left join users on reviews.user_id=users.user_id";
     private final String SELECT_ALL_MOVIES_SQL= "select * from movies";
+    private final String DELETE_REVIEWED_MOVIE_BY_REVIEW_ID = "delete from movies where review_id = ?";
+    private final String DELETE_REVIEW_BY_REVIEW_ID = "delete from reviews where review_id = ?";
 
     public Boolean createReview(Reviews r){
         Integer iResult = jdbc.update(CREATE_REVIEW_SQL,r.getReview_id(),r.getRating(),r.getReview(),r.getImage_url(),r.getPosted_on(),r.getUser_id());
@@ -39,6 +41,15 @@ public class ReviewRepository {
     // public List<Movies> findAllMovies(){
     //     return jdbc.query(SELECT_ALL_MOVIES_SQL,BeanPropertyRowMapper.newInstance(Movies.class));
     // }
+    
+    public Boolean deleteReviewedMovie(String review_id){
+        Integer rowsDeleted = jdbc.update(DELETE_REVIEWED_MOVIE_BY_REVIEW_ID,review_id);
+        return rowsDeleted > 0 ? true : false;
+    }
 
+    public Boolean deleteReview(String review_id){
+        Integer rowsDeleted = jdbc.update(DELETE_REVIEW_BY_REVIEW_ID,review_id);
+        return rowsDeleted > 0 ? true : false;
+    }
 
 }

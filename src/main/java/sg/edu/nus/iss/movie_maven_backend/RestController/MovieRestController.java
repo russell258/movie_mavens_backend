@@ -10,6 +10,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +24,8 @@ import jakarta.json.JsonObject;
 import sg.edu.nus.iss.movie_maven_backend.Model.Movies;
 import sg.edu.nus.iss.movie_maven_backend.Model.ReviewedMovies;
 import sg.edu.nus.iss.movie_maven_backend.Model.Reviews;
+import sg.edu.nus.iss.movie_maven_backend.Services.DeleteException;
+import sg.edu.nus.iss.movie_maven_backend.Services.DeleteService;
 import sg.edu.nus.iss.movie_maven_backend.Services.MovieService;
 import sg.edu.nus.iss.movie_maven_backend.Services.ReviewService;
 
@@ -35,6 +38,9 @@ public class MovieRestController {
 
     @Autowired
     ReviewService rSvc;
+
+    @Autowired
+    DeleteService dSvc;
     
     @GetMapping({"/home/{firstPath}/{secondPath}/{thirdPath}", "/home/{firstPath}/{secondPath}"})
     public ResponseEntity<String> getMovies(@PathVariable String firstPath, @PathVariable String secondPath, @PathVariable(required=false) String thirdPath){
@@ -104,6 +110,21 @@ public class MovieRestController {
         
         return ResponseEntity.ok(outgoingJo.toString());
     }
+
+    @DeleteMapping(path="/delete/review/{review_id}")
+    public ResponseEntity<String> deleteReviewMovieRecordTransaction(@PathVariable String review_id) throws DeleteException{
+        Boolean deleted = dSvc.deleteReviewMovieRecordTransaction(review_id);
+        JsonObject outgoingJo;
+        if (deleted == true){
+            outgoingJo = Json.createObjectBuilder()
+                                .add("status","review deleted")
+                                .build();
+        return ResponseEntity.ok(outgoingJo.toString());
+        }else{
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
 
 
 }
