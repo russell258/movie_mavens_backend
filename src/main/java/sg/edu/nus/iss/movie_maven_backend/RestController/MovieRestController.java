@@ -5,7 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import sg.edu.nus.iss.movie_maven_backend.Model.Movies;
+import sg.edu.nus.iss.movie_maven_backend.Model.ReviewedMovies;
 import sg.edu.nus.iss.movie_maven_backend.Model.Reviews;
 import sg.edu.nus.iss.movie_maven_backend.Services.MovieService;
 import sg.edu.nus.iss.movie_maven_backend.Services.ReviewService;
@@ -39,6 +40,18 @@ public class MovieRestController {
     public ResponseEntity<String> getMovies(@PathVariable String firstPath, @PathVariable String secondPath, @PathVariable(required=false) String thirdPath){
         return ResponseEntity.ok(mSvc.getMovies(firstPath, secondPath, thirdPath));
     }
+
+    @GetMapping(path="/reviews")
+    public ResponseEntity<List<ReviewedMovies>> getReviewedMovies(){
+        List<ReviewedMovies> allReviewedMovies = rSvc.findAllReviewedMovies();
+        return ResponseEntity.ok(allReviewedMovies);
+    }
+
+    // @GetMapping(path="/movies")
+    // public ResponseEntity<List<Movies>> getMovies(){
+    //     List<Movies> allMovies = rSvc.findAllMovies();
+    //     return ResponseEntity.ok(allMovies);
+    // }
 
     @PostMapping(path = "/receivereview",consumes=MediaType.MULTIPART_FORM_DATA_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> postFormToSQL(
