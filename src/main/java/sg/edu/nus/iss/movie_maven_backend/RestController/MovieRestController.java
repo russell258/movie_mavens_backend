@@ -44,8 +44,8 @@ public class MovieRestController {
     DeleteService dSvc;
     
     @GetMapping({"/movies/{firstPath}/{secondPath}/{thirdPath}", "/movies/{firstPath}/{secondPath}"})
-    public ResponseEntity<String> getMovies(@PathVariable String firstPath, @PathVariable String secondPath, @PathVariable(required=false) String thirdPath){
-        return ResponseEntity.ok(mSvc.getMovies(firstPath, secondPath, thirdPath));
+    public ResponseEntity<String> getMovies(@PathVariable String firstPath, @PathVariable String secondPath, @PathVariable(required=false) String thirdPath, @RequestParam("page") String page){
+        return ResponseEntity.ok(mSvc.getMovies(firstPath, secondPath, thirdPath, page));
     }
 
     @GetMapping(path="/search")
