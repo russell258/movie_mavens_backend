@@ -35,7 +35,6 @@ public class ContactController {
         eSvc.sendEmail(c.getEmail(),"Movie Maven | We have received your message", "Hi "+ c.getFullName() + ", we have received your message and will get back to you promptly.\nThank you!");
 
         JsonObject outgoingJo;
-
         if (cSvc.createContact(c)){
             outgoingJo = Json.createObjectBuilder()
                                 .add("email",c.getEmail())

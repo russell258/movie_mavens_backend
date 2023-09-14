@@ -27,7 +27,7 @@ public class SecurityConfig {
             .csrf(AbstractHttpConfigurer::disable)
             .sessionManagement(customizer -> customizer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers(HttpMethod.POST, "/api/login", "/api/register").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/contact","/api/login", "/api/register").permitAll()
                 .requestMatchers(HttpMethod.GET, "**").permitAll()
                 // .requestMatchers(HttpMethod.POST,"/api/receivereview").authenticated()
                 .anyRequest().authenticated());
