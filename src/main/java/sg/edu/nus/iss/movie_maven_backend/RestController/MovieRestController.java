@@ -43,10 +43,15 @@ public class MovieRestController {
     @Autowired
     DeleteService dSvc;
     
-    @GetMapping({"/home/{firstPath}/{secondPath}/{thirdPath}", "/home/{firstPath}/{secondPath}"})
+    @GetMapping({"/movies/{firstPath}/{secondPath}/{thirdPath}", "/movies/{firstPath}/{secondPath}"})
     public ResponseEntity<String> getMovies(@PathVariable String firstPath, @PathVariable String secondPath, @PathVariable(required=false) String thirdPath){
         return ResponseEntity.ok(mSvc.getMovies(firstPath, secondPath, thirdPath));
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<String> searchMovies(@RequestParam("query") String searchInput){
+        return ResponseEntity.ok(mSvc.searchMovies(searchInput));
+    }   
 
     @GetMapping(path="/reviews")
     public ResponseEntity<List<ReviewedMovies>> getReviewedMovies(){
