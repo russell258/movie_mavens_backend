@@ -48,9 +48,9 @@ public class MovieRestController {
         return ResponseEntity.ok(mSvc.getMovies(firstPath, secondPath, thirdPath));
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<String> searchMovies(@RequestParam("query") String searchInput){
-        return ResponseEntity.ok(mSvc.searchMovies(searchInput));
+    @GetMapping(path="/search")
+    public ResponseEntity<String> searchMovies(@RequestParam("query") String searchInput, @RequestParam("page") String page){
+        return ResponseEntity.ok(mSvc.searchMovies(searchInput, page));
     }   
 
     @GetMapping(path="/reviews")

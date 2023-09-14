@@ -30,10 +30,11 @@ public class MovieService {
         return rest.getForEntity(url, String.class).getBody();
     }
 
-    public String searchMovies(@RequestParam("query") String searchInput){
+    public String searchMovies(@RequestParam("query") String searchInput, @RequestParam("page") String page){
         String url = UriComponentsBuilder.fromUriString(TMDB_URL)
                                             .pathSegment("search","movie")
                                             .queryParam("query", searchInput)
+                                            .queryParam("page",page)
                                             .queryParam("api_key",TMDB_API_KEY)
                                             .toUriString();
         return rest.getForEntity(url,String.class).getBody();
