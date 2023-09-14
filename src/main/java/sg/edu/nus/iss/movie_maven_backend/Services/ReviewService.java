@@ -45,8 +45,8 @@ public class ReviewService {
         return ReviewRepo.findAllReviewedMovies();
     }
 
-    // public List<Movies> findAllMovies(){
-    //     return ReviewRepo.findAllMovies();
-    // }
+    public List<ReviewedMovies> findReviewedMoviesByUser(String user_id){
+        return ReviewRepo.findReviewedMoviesByUser(user_id);
+    }
 
 }

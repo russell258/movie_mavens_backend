@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -53,11 +54,11 @@ public class MovieRestController {
         return ResponseEntity.ok(allReviewedMovies);
     }
 
-    // @GetMapping(path="/movies")
-    // public ResponseEntity<List<Movies>> getMovies(){
-    //     List<Movies> allMovies = rSvc.findAllMovies();
-    //     return ResponseEntity.ok(allMovies);
-    // }
+    @GetMapping(path="/users")
+    public ResponseEntity<List<ReviewedMovies>> getReviwedMoviesByUser(@RequestParam("uid") String user_id){
+        List<ReviewedMovies> reviewedMoviesByUser = rSvc.findReviewedMoviesByUser(user_id);
+        return ResponseEntity.ok(reviewedMoviesByUser);
+    }
 
     @PostMapping(path = "/receivereview",consumes=MediaType.MULTIPART_FORM_DATA_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> postFormToSQL(
